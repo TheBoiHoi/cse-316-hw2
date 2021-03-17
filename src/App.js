@@ -7,6 +7,8 @@ import jsTPS from './common/jsTPS' // WE NEED THIS TOO
 import Navbar from './components/Navbar'
 import LeftSidebar from './components/LeftSidebar'
 import Workspace from './components/Workspace'
+import AddNewItem_Transaction from './transactions/AddNewItem_Transaction';
+import transitions from '@material-ui/core/styles/transitions';
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
 import ItemsListComponent from './components/ItemsListComponent'
 import ListsComponent from './components/ListsComponent'
@@ -48,6 +50,7 @@ class App extends Component {
 
     // SETUP OUR APP STATE
     this.state = {
+
       isListOpen: false,
       toDoLists: recentLists,
       currentList: {items: []},
@@ -175,9 +178,9 @@ class App extends Component {
       this.setState({
         nextListItemId: this.state.nextListItemId+1,
       },this.afterToDoListsChangeComplete);
+      return newItem;
     }
-   
-
+    
   }
 
   deleteCurrentList = () =>{
@@ -213,6 +216,22 @@ class App extends Component {
       }
   }
 
+  redo= () => {
+    if (this.tps.hasTransactionToRedo()) {
+        this.tps.doTransaction();
+    }
+  }
+  
+  undo= () =>  {
+    if (this.tps.hasTransactionToUndo()) {
+        this.tps.undoTransaction();
+    }
+} 
+
+  addNewItemTransaction= () =>{
+    let transaction = new AddNewItem_Transaction(this);
+    this.tps.addTransaction(transaction);
+  }
 
   render() {
     let items = this.state.currentList.items;
@@ -230,14 +249,16 @@ class App extends Component {
           moveItemDownCallback={this.moveItemDown}
           deleteItemCallback={this.deleteItem}
           closeToDoListCallback={this.closeToDoList}
-          addNewItemCallback={this.addNewItem}
-          deleteCurrentListCallback={this.deleteCurrentList}/>
+          addNewItemCallback={this.addNewItemTransaction}
+          deleteCurrentListCallback={this.deleteCurrentList}
+          redoCallback={this.redo}
+          undoCallback={this.undo}/>
 
       </div>
     );
   }
 }
 
-//test
-
+//test again
+ 
 export default App;
