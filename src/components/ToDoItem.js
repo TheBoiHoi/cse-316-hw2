@@ -29,6 +29,7 @@ class ToDoItem extends Component {
         this.props.deleteItemCallback(listItem);
     }
 
+
     render() {
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tToDoItem render");
