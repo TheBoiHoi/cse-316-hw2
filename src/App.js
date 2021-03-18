@@ -10,6 +10,9 @@ import Workspace from './components/Workspace'
 import AddNewItem_Transaction from './transactions/AddNewItem_Transaction';
 import MoveItemDown_Transaction from './transactions/MoveItemDown_Transaction';
 import MoveItemUp_Transaction from './transactions/MoveItemUp_Transaction';
+import DeleteItem_Transaction from './transactions/DeleteItem_Transaction';
+
+
 import transitions from '@material-ui/core/styles/transitions';
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
 import ItemsListComponent from './components/ItemsListComponent'
@@ -91,6 +94,17 @@ class App extends Component {
       nextListId: this.state.nextListId+1
     }, this.afterToDoListsChangeComplete);
   }
+
+  addItemToCurrentList = (item) => {
+    if(this.state.isListOpen){
+      let newCurrentList = [item,...this.state.currentList.items];
+      this.state.currentList.items = newCurrentList;
+      this.setState({
+        nextListItemId: this.state.nextListItemId+1,
+      },this.afterToDoListsChangeComplete);
+    }
+  }
+  
 
   makeNewToDoList = () => {
     let newToDoList = {
@@ -244,6 +258,11 @@ class App extends Component {
     this.tps.addTransaction(transaction);
   }
 
+  deleteItemTransaction=(item)=>{
+    let transaction = new DeleteItem_Transaction(this,item);
+    this.tps.addTransaction(transaction);
+  }
+
   render() {
     let items = this.state.currentList.items;
     return (
@@ -258,7 +277,7 @@ class App extends Component {
         <Workspace toDoListItems={items} 
           moveItemUpCallback={this.moveItemUpTransaction}
           moveItemDownCallback={this.moveItemDownTransaction}
-          deleteItemCallback={this.deleteItem}
+          deleteItemCallback={this.deleteItemTransaction}
           closeToDoListCallback={this.closeToDoList}
           addNewItemCallback={this.addNewItemTransaction}
           deleteCurrentListCallback={this.deleteCurrentList}
