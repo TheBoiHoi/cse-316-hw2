@@ -69,6 +69,9 @@ class Workspace extends Component {
                             moveItemUpCallback ={this.props.moveItemUpCallback} // PASS THE ITEM TO THE CHILDREN
                             moveItemDownCallback={this.props.moveItemDownCallback}
                             deleteItemCallback={this.props.deleteItemCallback}
+                            changeDueDateCallback={this.props.changeDueDateCallback}
+                            changeStatusCallback={this.props.changeStatusCallback}
+                            changeTaskCallback={this.props.changeTaskCallback}
                         />))
                     }
                 </div>

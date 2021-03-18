@@ -68,7 +68,7 @@ class App extends Component {
   // WILL LOAD THE SELECTED LIST
   loadToDoList = (toDoList) => {
     console.log("loading " + toDoList);
-
+    this.tps.clearAllTransactions();
     // MAKE SURE toDoList IS AT THE TOP OF THE STACK BY REMOVING THEN PREPENDING
     const nextLists = this.state.toDoLists.filter(testList =>
       testList.id !== toDoList.id
@@ -263,6 +263,18 @@ class App extends Component {
     this.tps.addTransaction(transaction);
   }
 
+  changeDueDateTransaction=(item)=>{
+    alert("test");
+  }
+
+  changeStatusTransaction=(item)=>{
+    alert("test");
+  }
+
+  changeTask_Transaction=(item)=>{
+    alert("test");
+  }
+
   render() {
     let items = this.state.currentList.items;
     return (
@@ -278,9 +290,14 @@ class App extends Component {
           moveItemUpCallback={this.moveItemUpTransaction}
           moveItemDownCallback={this.moveItemDownTransaction}
           deleteItemCallback={this.deleteItemTransaction}
+          changeDueDateCallback={this.changeDueDateTransaction}
+          changeStatusCallback={this.changeStatusTransaction}
+          changeTaskCallback={this.changeTask_Transaction}
+
           closeToDoListCallback={this.closeToDoList}
           addNewItemCallback={this.addNewItemTransaction}
           deleteCurrentListCallback={this.deleteCurrentList}
+          
           redoCallback={this.redo}
           undoCallback={this.undo}/>
 

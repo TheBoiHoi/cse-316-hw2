@@ -29,6 +29,17 @@ class ToDoItem extends Component {
         this.props.deleteItemCallback(listItem);
     }
 
+    handleTask= (listItem) =>{
+        this.props.changeTaskCallback(listItem);
+    }
+
+    handleChangeDueDate = (listItem) =>{
+        this.props.changeDueDateCallback(listItem);
+    }
+
+    handleStatus = (listItem) =>{
+        this.props.changeStatusCallback(listItem);
+    }
 
     render() {
         // DISPLAY WHERE WE ARE
@@ -40,9 +51,13 @@ class ToDoItem extends Component {
 
         return (
             <div id={'todo-list-item-' + listItem.id} className='list-item-card'>
-                <div className='item-col task-col' contentEditable='true'>{listItem.description}</div>
-                <div className='item-col due-date-col'>{listItem.due_date}</div>
-                <div className='item-col status-col' className={statusType}>{listItem.status}</div>
+                <div className='item-col task-col'
+                 contentEditable='false'
+                 onClick={()=>this.handleTask(listItem)}>{listItem.description}</div>
+                <div className='item-col due-date-col'
+                   onClick={()=>this.handleChangeDueDate(listItem)} >{listItem.due_date}</div>
+                <div className='item-col status-col' className={statusType}
+                    onClick={()=>this.handleStatus(listItem)}>{listItem.status}</div>
                 <div className='item-col test-4-col'></div>
                 <div className='item-col list-controls-col'>
                     <KeyboardArrowUp className='list-item-control todo-button' 
