@@ -11,6 +11,7 @@ import AddNewItem_Transaction from './transactions/AddNewItem_Transaction';
 import MoveItemDown_Transaction from './transactions/MoveItemDown_Transaction';
 import MoveItemUp_Transaction from './transactions/MoveItemUp_Transaction';
 import DeleteItem_Transaction from './transactions/DeleteItem_Transaction';
+import ChangeTask_Transaction from './transactions/ChangeTask_Transaction';
 
 
 import transitions from '@material-ui/core/styles/transitions';
@@ -271,8 +272,12 @@ class App extends Component {
     alert("test");
   }
 
-  changeTask_Transaction=(item)=>{
-    alert("test");
+  changeTask_Transaction=(item,oldTask,newTask)=>{
+    let transaction = new ChangeTask_Transaction(this,item,oldTask,newTask);
+    this.tps.addTransaction(transaction);
+    this.setState({
+      
+    });
   }
 
   render() {
@@ -290,6 +295,7 @@ class App extends Component {
           moveItemUpCallback={this.moveItemUpTransaction}
           moveItemDownCallback={this.moveItemDownTransaction}
           deleteItemCallback={this.deleteItemTransaction}
+
           changeDueDateCallback={this.changeDueDateTransaction}
           changeStatusCallback={this.changeStatusTransaction}
           changeTaskCallback={this.changeTask_Transaction}

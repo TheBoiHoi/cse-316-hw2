@@ -30,14 +30,17 @@ class ToDoItem extends Component {
     }
 
     handleTask= (listItem) =>{
-        this.props.changeTaskCallback(listItem);
+        let listItemTask = document.getElementById('todo-list-item-task-' + listItem.id);
+        this.props.changeTaskCallback(listItem,listItem.description,listItemTask.innerHTML);
     }
 
     handleChangeDueDate = (listItem) =>{
+        let listItemDueDate = document.getElementById('todo-list-item-due-date-' + listItem.id);
         this.props.changeDueDateCallback(listItem);
     }
 
     handleStatus = (listItem) =>{
+        let listItemStatus = document.getElementById('todo-list-item-due-date-' + listItem.id);
         this.props.changeStatusCallback(listItem);
     }
 
@@ -49,14 +52,22 @@ class ToDoItem extends Component {
         if (listItem.status === "incomplete")
             statusType = "status-incomplete";
 
+
         return (
             <div id={'todo-list-item-' + listItem.id} className='list-item-card'>
-                <div className='item-col task-col'
-                 contentEditable='false'
-                 onClick={()=>this.handleTask(listItem)}>{listItem.description}</div>
-                <div className='item-col due-date-col'
+                <div 
+                 id ={'todo-list-item-task-' + listItem.id}
+                 className='item-col task-col'
+                 contentEditable='true'
+                 onBlur={()=>this.handleTask(listItem)}>{listItem.description}</div>
+
+                <div 
+                    id ={'todo-list-item-due-date-' + listItem.id}
+                    className='item-col due-date-col'
                    onClick={()=>this.handleChangeDueDate(listItem)} >{listItem.due_date}</div>
-                <div className='item-col status-col' className={statusType}
+                <div
+                    id ={'todo-list-item-status-' + listItem.id} 
+                    className='item-col status-col' className={statusType}
                     onClick={()=>this.handleStatus(listItem)}>{listItem.status}</div>
                 <div className='item-col test-4-col'></div>
                 <div className='item-col list-controls-col'>
