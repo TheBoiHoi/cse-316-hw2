@@ -84,7 +84,13 @@ class App extends Component {
     let activeList = document.getElementById(toDoList.name);
     activeList.classList.add("todo_button-active");
 
-    
+    document.getElementById("undo-button").classList.remove("button-close");
+    document.getElementById("redo-button").classList.remove("button-close");
+    document.getElementById("add-item-button").classList.remove("button-close");
+    document.getElementById("delete-list-button").classList.remove("button-close");
+    document.getElementById("close-list-button").classList.remove("button-close");
+
+  
 
     this.setState({
       isListOpen: true,
@@ -94,7 +100,8 @@ class App extends Component {
   }
 
   addNewList = () => {
-    let newToDoListInList = [this.makeNewToDoList()];
+    if(this.state.isListOpen==false){
+      let newToDoListInList = [this.makeNewToDoList()];
     let newToDoListsList = [...newToDoListInList, ...this.state.toDoLists];
     let newToDoList = newToDoListInList[0];
 
@@ -104,6 +111,7 @@ class App extends Component {
       currentList: newToDoList,
       nextListId: this.state.nextListId+1
     }, this.afterToDoListsChangeComplete);
+    } 
   }
 
   addItemToCurrentList = (item) => {
@@ -188,6 +196,18 @@ class App extends Component {
   };
   
   closeToDoList = () =>{
+
+    if(this.state.isListOpen){
+      let test = document.getElementsByClassName("todo_button-active");
+    test[0].classList.remove("todo_button-active");
+    }
+    
+    document.getElementById("undo-button").classList.add("button-close");
+    document.getElementById("redo-button").classList.add("button-close");
+    document.getElementById("add-item-button").classList.add("button-close");
+    document.getElementById("delete-list-button").classList.add("button-close");
+    document.getElementById("close-list-button").classList.add("button-close");
+
     this.setState({
       isListOpen:false,
       currentList: {items: []}
@@ -228,6 +248,11 @@ class App extends Component {
             currentList: {items: []}
           },thisApp.afterToDoListsChangeComplete)
           modal.style.display="none";
+          document.getElementById("undo-button").classList.add("button-close");
+          document.getElementById("redo-button").classList.add("button-close");
+          document.getElementById("add-item-button").classList.add("button-close");
+          document.getElementById("delete-list-button").classList.add("button-close");
+          document.getElementById("close-list-button").classList.add("button-close");
         }
     
         cancel.onclick = function(){

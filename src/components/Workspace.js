@@ -40,13 +40,13 @@ class Workspace extends Component {
                     <div id="date-col-header" className="item-col todo-button">Due Date</div>
                     <div id="status-col-header" className="item-col todo-button">Status</div>
                     <div className="item-col" display="flex" flexDirection="row" flexWrap="nowrap">
-                        <Undo id="undo-button" className="list-item-control material-icons todo-button" 
+                        <Undo id="undo-button" className="list-item-control material-icons todo-button button-close" 
                                 onClick = {this.handleUedo}/>
-                        <Redo id="redo-button" className="list-item-control material-icons todo-button" 
+                        <Redo id="redo-button" className="list-item-control material-icons todo-button button-close" 
                                 onClick = {this.handleRedo}/>
-                        <AddBox id="add-item-button" className="list-item-control material-icons todo-button" 
+                        <AddBox id="add-item-button" className="list-item-control material-icons todo-button button-close" 
                                 onClick = {this.handleAddNewItem}/>
-                        <Delete id="delete-list-button" className="list-item-control material-icons todo-button" 
+                        <Delete id="delete-list-button" className="list-item-control material-icons todo-button button-close" 
                                 onClick = {this.handleDeleteCurrentList}/>
                             <div id="delete-list-modal" class="modal">
                                 <div class="delete-list-modal-content">
@@ -56,7 +56,7 @@ class Workspace extends Component {
                                 <div class="delete-list-modal-button-no">Cancel</div>
                                 </div>
                             </div>
-                        <Close id="close-list-button" className="list-item-control material-icons todo-button" 
+                        <Close id="close-list-button" className="list-item-control material-icons todo-button button-close" 
                                 onClick = {this.handleCloseList}/>
                     </div>
                 </div>

@@ -144,3 +144,9 @@
   .todo_button-active{
     background-color: var(--swatch-contrast);
 }
+
+.button-close:hover,
+.button-close{
+    background-color: grey;
+    cursor: default;
+}
