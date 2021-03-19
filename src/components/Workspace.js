@@ -32,6 +32,7 @@ class Workspace extends Component {
         this.props.undoCallback();
     }
 
+
     render() {
         return (
             <div id="workspace">
@@ -43,7 +44,7 @@ class Workspace extends Component {
                         <Undo id="undo-button" className="list-item-control material-icons todo-button button-close" 
                                 onClick = {this.handleUedo}/>
                         <Redo id="redo-button" className="list-item-control material-icons todo-button button-close" 
-                                onClick = {this.handleRedo}/>
+                                onClick = {(this.handleRedo)} />
                         <AddBox id="add-item-button" className="list-item-control material-icons todo-button button-close" 
                                 onClick = {this.handleAddNewItem}/>
                         <Delete id="delete-list-button" className="list-item-control material-icons todo-button button-close" 

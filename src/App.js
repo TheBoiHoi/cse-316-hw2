@@ -54,6 +54,8 @@ class App extends Component {
       }
     };
 
+    
+
     // SETUP OUR APP STATE
     this.state = {
 
@@ -344,6 +346,17 @@ class App extends Component {
 
   render() {
     let items = this.state.currentList.items;
+    let app = this;
+    document.addEventListener('keydown', function(event) {
+      if (event.ctrlKey && event.key === 'z') {
+        app.undo();
+      }
+    });
+    document.addEventListener('keydown', function(event) {
+      if (event.ctrlKey && event.key === 'y') {
+        app.redo();
+      }
+    });
     return (
       <div id="root">
         <Navbar />
