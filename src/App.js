@@ -12,7 +12,8 @@ import MoveItemDown_Transaction from './transactions/MoveItemDown_Transaction';
 import MoveItemUp_Transaction from './transactions/MoveItemUp_Transaction';
 import DeleteItem_Transaction from './transactions/DeleteItem_Transaction';
 import ChangeTask_Transaction from './transactions/ChangeTask_Transaction';
-
+import ChangeDueDate_Transaction from './transactions/ChangeDueDate_Transaction';
+import ChangeStatus_Transaction from './transactions/ChangeStatus_Transaction';
 
 import transitions from '@material-ui/core/styles/transitions';
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
@@ -264,12 +265,20 @@ class App extends Component {
     this.tps.addTransaction(transaction);
   }
 
-  changeDueDateTransaction=(item)=>{
-    alert("test");
+  changeDueDateTransaction=(item,oldDate,newDate)=>{
+    let transaction = new ChangeDueDate_Transaction(this,item,newDate,oldDate);
+    this.tps.addTransaction(transaction);    
+    this.setState({
+      
+    });
   }
 
-  changeStatusTransaction=(item)=>{
-    alert("test");
+  changeStatusTransaction=(item,newStatus,oldStatus)=>{
+    let transaction = new ChangeStatus_Transaction(this,item,newStatus,oldStatus);
+    this.tps.addTransaction(transaction);    
+    this.setState({
+      
+    });
   }
 
   changeTask_Transaction=(item,oldTask,newTask)=>{

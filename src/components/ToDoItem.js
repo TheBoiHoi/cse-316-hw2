@@ -31,16 +31,60 @@ class ToDoItem extends Component {
 
     handleTask= (listItem) =>{
         let listItemTask = document.getElementById('todo-list-item-task-' + listItem.id);
-        this.props.changeTaskCallback(listItem,listItem.description,listItemTask.innerHTML);
+        this.props.changeTaskCallback(listItem,listItem.description,listItemTask.innerText);
     }
 
     handleChangeDueDate = (listItem) =>{
+        let workspace = this;
         let listItemDueDate = document.getElementById('todo-list-item-due-date-' + listItem.id);
-        this.props.changeDueDateCallback(listItem);
+        let tempElement = listItemDueDate;
+        let inputDueDate = document.createElement("input");
+        inputDueDate.type = "date"
+        listItemDueDate = inputDueDate;
+        document.getElementById('todo-list-item-' + listItem.id).replaceChild(listItemDueDate,tempElement);
+        listItemDueDate = document.getElementsByTagName("input")[0];           
+        listItemDueDate.addEventListener('focusout',function(){
+            let dateStr = listItemDueDate.value;
+            if(dateStr.localeCompare("")===0){
+
+            }else{
+                listItem.due_date = dateStr;
+                workspace.props.changeDueDateCallback(listItem,listItem.due_date,dateStr);
+            }
+            
+            
+        });
+        listItemDueDate.focus();
     }
 
     handleStatus = (listItem) =>{
-        let listItemStatus = document.getElementById('todo-list-item-due-date-' + listItem.id);
+        let workspace = this;
+        let listItemStatus = document.getElementById('todo-list-item-status-' + listItem.id);
+        let tempElement = listItemStatus;
+                let dropDown = document.createElement("div");
+                dropDown.id = "status-select";
+                dropDown.className = "status-col";
+                let status = ["complete","incomplete"];
+                let select = document.createElement("select");
+                select.id = "selected-value"
+                for(const val of status){
+                    let option = document.createElement("option");
+                    option.value=val;
+                    option.text = val;
+                    select.appendChild(option);
+                }
+                dropDown.appendChild(select);
+                listItemStatus = dropDown;
+                document.getElementById('todo-list-item-' + listItem.id).replaceChild(listItemStatus,tempElement);
+                listItemStatus.addEventListener("focusout",function(){               
+                    let test = document.getElementById("selected-value");
+                    let option = test.value;
+                    var compareStr = option.localeCompare(listItem.status);
+                    if(compareStr != 0){
+                        workspace.props.changeStatusCallback(listItem,option,listItem.status);   
+                    }
+                });
+                listItemStatus.focus();
         this.props.changeStatusCallback(listItem);
     }
 
