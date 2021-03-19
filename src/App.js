@@ -22,12 +22,11 @@ import ListsComponent from './components/ListsComponent'
 */}
 class App extends Component {
   constructor(props) {
+    
     // ALWAYS DO THIS FIRST
     super(props);
-
     // DISPLAY WHERE WE ARE
     console.log("App constructor");
-
     // MAKE OUR TRANSACTION PROCESSING SYSTEM
     this.tps = new jsTPS();
 
@@ -81,8 +80,10 @@ class App extends Component {
       let test = document.getElementsByClassName("todo_button-active");
       test[0].classList.remove("todo_button-active");
     }
-    let activeList = document.getElementById(toDoList.name);
+    let activeList = document.getElementById(toDoList.id);
     activeList.classList.add("todo_button-active");
+
+    document.getElementById("add-list-button").classList.add("button-black");
 
     document.getElementById("undo-button").classList.remove("button-close");
     document.getElementById("redo-button").classList.remove("button-close");
@@ -96,7 +97,7 @@ class App extends Component {
       isListOpen: true,
       toDoLists: nextLists,
       currentList: toDoList
-    });
+    }, this.afterToDoListsChangeComplete);
   }
 
   addNewList = () => {
@@ -126,8 +127,9 @@ class App extends Component {
   
 
   makeNewToDoList = () => {
+    let nextId = this.state.nextListId;
     let newToDoList = {
-      id: this.highListId,
+      id: nextId,
       name: 'Untitled',
       items: []
     };
@@ -135,9 +137,11 @@ class App extends Component {
   }
 
   makeNewToDoListItem = () =>  {
+    let nextId = this.state.nextListItemId;
     let newToDoListItem = {
+      id: nextId,
       description: "No Description",
-      dueDate: "none",
+      dueDate: 'none',
       status: "incomplete"
     };
     return newToDoListItem;
@@ -150,7 +154,7 @@ class App extends Component {
 
     // WILL THIS WORK? @todo
     let toDoListsString = JSON.stringify(this.state.toDoLists);
-    localStorage.setItem("recent_work", toDoListsString);
+    localStorage.setItem("recentLists", toDoListsString);
   }
 
   getItemIndexFromCurrentList = (listItem) =>{
@@ -171,7 +175,7 @@ class App extends Component {
       this.state.currentList.items[itemIndex-1] = this.state.currentList.items[itemIndex];
       this.state.currentList.items[itemIndex] = tempItem;
       this.setState({
-      })
+      }, this.afterToDoListsChangeComplete)
    }
   };
 
@@ -183,7 +187,7 @@ class App extends Component {
       this.state.currentList.items[itemIndex] = tempItem;
       this.setState({
         
-      })
+      }, this.afterToDoListsChangeComplete)
    }
   };
 
@@ -192,7 +196,7 @@ class App extends Component {
    this.state.currentList.items.splice(itemIndex,1);
    this.setState({
         
-  })
+  }, this.afterToDoListsChangeComplete)
   };
   
   closeToDoList = () =>{
@@ -208,17 +212,17 @@ class App extends Component {
     document.getElementById("delete-list-button").classList.add("button-close");
     document.getElementById("close-list-button").classList.add("button-close");
 
+    document.getElementById("add-list-button").classList.remove("button-black");
     this.setState({
       isListOpen:false,
       currentList: {items: []}
-    })
+    }, this.afterToDoListsChangeComplete)
   }
 
 
   addNewItem = () =>{
     if(this.state.isListOpen){
       let newItem = this.makeNewToDoListItem();
-      newItem.id =  this.nextListItemId;
       let newCurrentList = [newItem,...this.state.currentList.items];
       this.state.currentList.items = newCurrentList;
       this.setState({
@@ -253,6 +257,7 @@ class App extends Component {
           document.getElementById("add-item-button").classList.add("button-close");
           document.getElementById("delete-list-button").classList.add("button-close");
           document.getElementById("close-list-button").classList.add("button-close");
+          document.getElementById("add-list-button").classList.remove("button-black");
         }
     
         cancel.onclick = function(){
@@ -304,7 +309,7 @@ class App extends Component {
     this.tps.addTransaction(transaction);    
     this.setState({
       
-    });
+    }, this.afterToDoListsChangeComplete);
   }
 
   changeStatusTransaction=(item,newStatus,oldStatus)=>{
@@ -312,7 +317,7 @@ class App extends Component {
     this.tps.addTransaction(transaction);    
     this.setState({
       
-    });
+    }, this.afterToDoListsChangeComplete);
   }
 
   changeTask_Transaction=(item,oldTask,newTask)=>{
@@ -320,7 +325,21 @@ class App extends Component {
     this.tps.addTransaction(transaction);
     this.setState({
       
+    }, this.afterToDoListsChangeComplete);
+  }
+
+  editeListName = (toDoList) =>{
+    let app = this;
+    let toDoListElements = document.getElementById(toDoList.id);
+    toDoListElements.contentEditable = true;
+    toDoListElements.addEventListener('focusout',function(){
+      toDoList.name=toDoListElements.innerText;
+      toDoListElements.contentEditable = false;
+      app.setState({
+      
+      }, app.afterToDoListsChangeComplete);
     });
+    
   }
 
   render() {

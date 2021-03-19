@@ -18,16 +18,21 @@ class ListLink extends Component {
         this.props.loadToDoListCallback(this.props.toDoList);
     }
 
+    handleEditeListName= () =>{
+        this.props.editeListNameCalllback(this.props.toDoList);
+    }
+
     render() {
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tListLink render");
 
         return (
             <div 
-                id = {this.props.toDoList.name}
+                id = {this.props.toDoList.id}
                 className='todo-list-button'
                 onClick={this.handleLoadList}
-                contentEditable='true'
+                contentEditable='false'
+                onDoubleClick={this.handleEditeListName}
             >
                 {this.props.toDoList.name}<br />
             </div>

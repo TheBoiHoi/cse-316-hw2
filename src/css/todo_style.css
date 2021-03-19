@@ -94,9 +94,10 @@
 .todo-button:hover {
     background-color: var(--swatch-contrast);
 }
-
+#add-list-button:hover,
 #add-list-button {
     color: var(--swatch-accent);
+    cursor: pointer;
 }
 
 .status-incomplete {
@@ -148,5 +149,11 @@
 .button-close:hover,
 .button-close{
     background-color: grey;
+    cursor: default;
+}
+
+.button-black:hover,
+.button-black{
+    background-color: black;
     cursor: default;
 }

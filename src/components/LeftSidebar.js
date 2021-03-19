@@ -12,6 +12,7 @@ class LeftSidebar extends Component {
         this.props.addNewListCallback();
     }
 
+
     render() {
         return (
             <div id="left-sidebar">
@@ -29,6 +30,7 @@ class LeftSidebar extends Component {
                     this.props.toDoLists.map((toDoList) => (
                         <ListLink
                             key={toDoList.id}
+                            editeListNameCalllback={this.props.editeListNameCalllback}
                             toDoList={toDoList}                                // PASS THE LIST TO THE CHILDREN
                             loadToDoListCallback={this.props.loadToDoListCallback} />  // PASS THE CALLBACK TO THE CHILDREN
                             
