@@ -22,7 +22,7 @@ import ListsComponent from './components/ListsComponent'
 */}
 class App extends Component {
   constructor(props) {
-    
+
     // ALWAYS DO THIS FIRST
     super(props);
     // DISPLAY WHERE WE ARE
@@ -251,6 +251,7 @@ class App extends Component {
         confrim.onclick = function(){
           thisApp.state.toDoLists.shift();
           thisApp.setState({
+            isListOpen:false,
             currentList: {items: []}
           },thisApp.afterToDoListsChangeComplete)
           modal.style.display="none";
@@ -307,7 +308,7 @@ class App extends Component {
   }
 
   changeDueDateTransaction=(item,oldDate,newDate)=>{
-    let transaction = new ChangeDueDate_Transaction(this,item,newDate,oldDate);
+    let transaction = new ChangeDueDate_Transaction(this,item,oldDate,newDate);
     this.tps.addTransaction(transaction);    
     this.setState({
       

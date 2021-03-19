@@ -15,9 +15,15 @@ export default class ChangeStatus_Transaction extends jsTPS_Transaction {
 
     doTransaction() {
         this.changeItem.status = this.newStatus;
+        this.currentAPP.setState({
+      
+        }, this.currentAPP.afterToDoListsChangeComplete);
     }
 
     undoTransaction() {
         this.changeItem.status = this.oldStatus;
+        this.currentAPP.setState({
+      
+        }, this.currentAPP.afterToDoListsChangeComplete);
     }
 }

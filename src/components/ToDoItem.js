@@ -36,8 +36,10 @@ class ToDoItem extends Component {
 
     handleChangeDueDate = (listItem) =>{
         let workspace = this;
+
         let listItemDueDate = document.getElementById('todo-list-item-due-date-' + listItem.id);
         let tempElement = listItemDueDate;
+        let tempElement2 = listItemDueDate;
         let inputDueDate = document.createElement("input");
         inputDueDate.type = "date"
         listItemDueDate = inputDueDate;
@@ -46,9 +48,10 @@ class ToDoItem extends Component {
         listItemDueDate.addEventListener('focusout',function(){
             let dateStr = listItemDueDate.value;
             if(dateStr.localeCompare("")===0){
-
+                document.getElementById('todo-list-item-' + listItem.id).replaceChild(tempElement2,listItemDueDate);
             }else{
-                listItem.due_date = dateStr;
+                document.getElementById('todo-list-item-' + listItem.id).replaceChild(tempElement2,listItemDueDate);
+
                 workspace.props.changeDueDateCallback(listItem,listItem.due_date,dateStr);
             }
             
@@ -61,6 +64,7 @@ class ToDoItem extends Component {
         let workspace = this;
         let listItemStatus = document.getElementById('todo-list-item-status-' + listItem.id);
         let tempElement = listItemStatus;
+        let tempElement2 = listItemStatus;
                 let dropDown = document.createElement("div");
                 dropDown.id = "status-select";
                 dropDown.className = "status-col";
@@ -81,11 +85,11 @@ class ToDoItem extends Component {
                     let option = test.value;
                     var compareStr = option.localeCompare(listItem.status);
                     if(compareStr != 0){
+                        document.getElementById('todo-list-item-' + listItem.id).replaceChild(tempElement2,listItemStatus);
                         workspace.props.changeStatusCallback(listItem,option,listItem.status);   
                     }
                 });
                 listItemStatus.focus();
-        this.props.changeStatusCallback(listItem);
     }
 
     render() {
