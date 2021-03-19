@@ -73,9 +73,18 @@ class App extends Component {
     this.tps.clearAllTransactions();
     // MAKE SURE toDoList IS AT THE TOP OF THE STACK BY REMOVING THEN PREPENDING
     const nextLists = this.state.toDoLists.filter(testList =>
-      testList.id !== toDoList.id
+      testList.id !== toDoList.id,
     );
     nextLists.unshift(toDoList);
+
+    if(this.state.isListOpen){
+      let test = document.getElementsByClassName("todo_button-active");
+      test[0].classList.remove("todo_button-active");
+    }
+    let activeList = document.getElementById(toDoList.name);
+    activeList.classList.add("todo_button-active");
+
+    
 
     this.setState({
       isListOpen: true,

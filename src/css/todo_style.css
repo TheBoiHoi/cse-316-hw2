@@ -140,3 +140,7 @@
     font-size: 28px;
     font-weight: bold;
   }
+
+  .todo_button-active{
+    background-color: var(--swatch-contrast);
+}

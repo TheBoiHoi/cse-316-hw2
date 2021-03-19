@@ -24,6 +24,7 @@ class ListLink extends Component {
 
         return (
             <div 
+                id = {this.props.toDoList.name}
                 className='todo-list-button'
                 onClick={this.handleLoadList}
                 contentEditable='true'
